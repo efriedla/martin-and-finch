@@ -1,56 +1,61 @@
-// Builds the Martin and Finch logo as pure-path SVGs (no font needed to view them).
+// Martin and Finch logo, version 2: traced on the pixel grid of the owner's GoDaddy logo.
+// Units are the original screenshot's pixels: the monogram is 46 x 32.5, the wordmark sits
+// beside it with 14-unit capitals on a baseline at 24.
 const opentype = require('opentype.js'); const fs = require('fs'); const path = require('path');
-const [fontFile, outDir] = process.argv.slice(2);
-const font = opentype.loadSync(fontFile);
+const [semiFile, regFile, outDir] = process.argv.slice(2);
+const semi = opentype.loadSync(semiFile), reg = opentype.loadSync(regFile);
 const NAVY = '#0b2a4a', GOLD = '#b08f4e', CREAM = '#f6efe0';
 
-// Monogram, drawn in a 140 x 100 box. N in navy; the F's upright is a finch.
-function mark(nColor, fColor, eyeColor, wingColor) {
+function mark(n, g, eye) {
   return `
-  <g fill="${nColor}">
-    <path d="M1 2 H23 L77 98 H57 Z"/>
-    <path d="M7.5 18 H12.5 V93 H7.5 Z"/>
-    <path d="M0 92.5 H21 V98 H0 Z"/>
+  <g fill="${n}">
+    <path d="M0 0 H8.9 L23.9 32.5 H21.3 Z"/>
+    <path d="M2 7 L4.9 9.6 V27.6 C4.9 30 6.4 31.6 9 32.5 H0 C1.3 31.2 2 29.6 2 27.6 Z"/>
   </g>
-  <mask id="mf-wing" maskUnits="userSpaceOnUse" x="0" y="0" width="140" height="100"><rect width="140" height="100" fill="#fff"/><path d="M79.5 58 C73 49 72.5 35 78.5 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"/></mask>
-  <g fill="${fColor}" mask="url(#mf-wing)">
-    <path d="M80 93 V62 L59 47 C61 30 66 17 75 10 C80 5.5 86 3 92 3 H139 L131 12 C125 16 118 19 108 19 H103 C98 21 96 28 96 36 V93 Z"/>
-    <path d="M96 46 H130 L124 59 H96 Z"/>
-    <path d="M75.5 92.5 H100.5 V98 H75.5 Z"/>
+  <g fill="${g}">
+    <path d="M19.4 14.7 C17.7 13 17.5 10.4 18.6 8.3 C20 5.2 22.8 1.8 27 0 H45.1 L46.3 1.3 L43.5 4.4 L42.9 6.1 H36.9 V6.9 H35 V6.1 C34.4 4.2 33.3 3 31.9 3 H26.6 C24.6 3.9 23.1 5.7 22.5 7.9 C21.8 10.2 21.4 12.6 19.4 14.7 Z"/>
+    <path d="M32 6.9 H36.9 C34.4 8.2 31.6 10.2 30.9 13 V29.6 C30.9 31.2 31.8 32 33 32.5 H25 V18.5 C25.3 13.2 28 9.2 32 6.9 Z"/>
+    <path d="M33.1 16.1 H42 V19 L40.8 20.2 H33.1 Z"/>
   </g>
-  <circle cx="89" cy="13.5" r="2.4" fill="${eyeColor}"/>`;
+  <circle cx="28.6" cy="5.3" r="1.15" fill="${eye}"/>`;
 }
 
-function word(text, x, y, size) {
-  const p = font.getPath(text, x, y, size, { kerning: true });
-  return { d: p.toPathData(2), w: font.getAdvanceWidth(text, size, { kerning: true }) };
+// Glyph outlines, condensed horizontally by sx around the word's start
+function word(font, text, x, base, size, sx) {
+  const p = font.getPath(text, 0, base, size, { kerning: true });
+  const t = (X) => (x + X * sx).toFixed(2);
+  let d = '';
+  for (const c of p.commands) {
+    if (c.type === 'M' || c.type === 'L') d += `${c.type}${t(c.x)} ${c.y.toFixed(2)}`;
+    else if (c.type === 'C') d += `C${t(c.x1)} ${c.y1.toFixed(2)} ${t(c.x2)} ${c.y2.toFixed(2)} ${t(c.x)} ${c.y.toFixed(2)}`;
+    else if (c.type === 'Q') d += `Q${t(c.x1)} ${c.y1.toFixed(2)} ${t(c.x)} ${c.y.toFixed(2)}`;
+    else if (c.type === 'Z') d += 'Z';
+  }
+  return { d, w: font.getAdvanceWidth(text, size, { kerning: true }) * sx };
 }
 
-// Wordmark: "Martin and Finch", "and" smaller and gold, baseline at 70 to sit beside the mark
-function wordmark(x0, mainColor, andColor) {
-  const S = 58, s = 37, base = 70, gap = 9;
-  const m = word('Martin', x0, base, S);
-  const a = word('and', x0 + m.w + gap, base, s);
-  const f = word('Finch', x0 + m.w + gap + a.w + gap, base, S);
-  const width = m.w + gap + a.w + gap + f.w;
-  return { svg: `<path fill="${mainColor}" d="${m.d}"/><path fill="${andColor}" d="${a.d}"/><path fill="${mainColor}" d="${f.d}"/>`, width };
+function wordmark(main, andC) {
+  const capSize = (f, cap) => cap * f.unitsPerEm / f.tables.os2.sCapHeight;
+  const xSize = (f, xh) => xh * f.unitsPerEm / f.tables.os2.sxHeight;
+  const S = capSize(semi, 13.6), SX = 0.85;
+  const A = xSize(reg, 8.2), AX = 0.86;
+  const base = 24, x0 = 51;
+  const m = word(semi, 'Martin', x0, base, S, SX);
+  const a = word(reg, 'and', x0 + m.w + 3.2, base, A, AX);
+  const f = word(semi, 'Finch', x0 + m.w + 3.2 + a.w + 3.6, base, S, SX);
+  return { svg: `<path fill="${main}" d="${m.d}"/><path fill="${andC}" d="${a.d}"/><path fill="${main}" d="${f.d}"/>`, end: x0 + m.w + 3.2 + a.w + 3.6 + f.w };
 }
 
-function write(name, w, h, body, bg) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w.toFixed(1)} ${h}" width="${Math.round(w * 4)}" height="${h * 4}" role="img" aria-label="Martin and Finch">${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}${body}</svg>\n`;
-  fs.writeFileSync(path.join(outDir, name), svg);
-  console.log(name, Math.round(w), 'x', h);
+function svg(name, vb, w, h, body, bg) {
+  fs.writeFileSync(path.join(outDir, name), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}" role="img" aria-label="Martin and Finch">${bg ? `<rect x="-100" y="-100" width="1000" height="1000" fill="${bg}"/>` : ''}${body}</svg>\n`);
 }
 
-const wmX = 162;
-const wm = wordmark(wmX, NAVY, GOLD);
-write('logo.svg', wmX + wm.width + 2, 100, mark(NAVY, GOLD, NAVY, '#ffffff') + wm.svg);
-const wmR = wordmark(wmX, CREAM, GOLD);
-write('logo-reverse.svg', wmX + wmR.width + 2, 100, mark(CREAM, GOLD, NAVY, NAVY) + wmR.svg);
-write('mark.svg', 140, 100, mark(NAVY, GOLD, NAVY, '#ffffff'));
-write('mark-reverse.svg', 140, 100, mark(CREAM, GOLD, NAVY, NAVY));
-// Square: the mark centred on navy, for LinkedIn, social and app icons
-fs.writeFileSync(path.join(outDir, 'square.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="800" height="800" role="img" aria-label="Martin and Finch"><rect width="200" height="200" fill="${NAVY}"/><g transform="translate(30 50)">${mark(CREAM, GOLD, NAVY, NAVY)}</g></svg>\n`);
-// Favicon: the mark on a rounded navy tile
-fs.writeFileSync(path.join(outDir, 'favicon.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" rx="30" fill="${NAVY}"/><g transform="translate(10 30)">${mark(CREAM, GOLD, NAVY, NAVY)}</g></svg>\n`);
-console.log('square.svg, favicon.svg');
+const wm = wordmark(NAVY, GOLD), wmR = wordmark(CREAM, GOLD);
+const W = Math.ceil(wm.end + 1), H = 33;
+svg('logo.svg', `-0.5 -0.5 ${W} ${H}`, W * 12, H * 12, mark(NAVY, GOLD, NAVY) + wm.svg);
+svg('logo-reverse.svg', `-0.5 -0.5 ${W} ${H}`, W * 12, H * 12, mark(CREAM, GOLD, CREAM) + wmR.svg);
+svg('mark.svg', '-0.5 -0.5 47.5 33.5', 570, 402, mark(NAVY, GOLD, NAVY));
+svg('mark-reverse.svg', '-0.5 -0.5 47.5 33.5', 570, 402, mark(CREAM, GOLD, CREAM));
+svg('square.svg', '-17 -24 80 80', 800, 800, mark(CREAM, GOLD, CREAM), NAVY);
+fs.writeFileSync(path.join(outDir, 'favicon.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -13 58 58"><rect x="-6" y="-13" width="58" height="58" rx="11" fill="${NAVY}"/>${mark(CREAM, GOLD, CREAM)}</svg>\n`);
+console.log('logo', W, 'x', H, 'wordmark ends at', wm.end.toFixed(1), '(original 167)');
