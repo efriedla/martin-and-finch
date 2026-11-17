@@ -6,6 +6,7 @@ Version 3 (2026-11-17): the monogram is redrawn as vectors from the owner's refe
 |---|---|
 | `logo.svg` / `logo-2000.png` | Full logo on light backgrounds (PNG is transparent) |
 | `logo-reverse.svg` / `logo-reverse-2000.png` | Full logo on navy or dark backgrounds |
+| `logo-animated.svg` / `logo-animated-reverse.svg` | Site header: "Click into place" (the pieces settle in, the finch blinks, the words rise; about 1.7 s, once per page load). The animation is inside the SVG, so a plain `<img>` plays it; Reduce Motion shows the still logo |
 | `mark.svg` / `mark-1000.png` | Monogram alone, light backgrounds |
 | `mark-reverse.svg` | Monogram alone, dark backgrounds |
 | `square.svg` / `square-800.png` | Monogram on navy: LinkedIn logo, social profiles, app icon |
