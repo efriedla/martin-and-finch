@@ -360,6 +360,8 @@ textarea { resize: vertical; min-height: 104px; }
 .f-col { display: grid; gap: 8px; align-content: start; font-size: 16px; color: var(--ink-soft); }
 .f-col a { text-decoration: none; }
 .f-col a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.f-fine { margin-top: 14px; margin-bottom: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); max-width: 1240px; }
+.f-base a { text-underline-offset: 3px; }
 .f-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 14.5px; color: var(--ink-soft); }
 
 .s-nav { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
@@ -390,7 +392,7 @@ textarea { resize: vertical; min-height: 104px; }
         <button type="button" id="svcBtn" aria-expanded="false" aria-controls="svcMenu">Services</button>
         <div class="menu" id="svcMenu" hidden>
           <div class="menu-group"><span>Money in and out</span>
-            <a href="#familiar"><b>Paying bills</b><small>One inbox, a set pay day, no late fees</small></a>
+            <a href="#familiar"><b>Paying bills</b><small>One inbox and a set day to pay them</small></a>
             <a href="#familiar"><b>Getting paid</b><small>Invoices out on time, polite reminders</small></a>
             <a href="#familiar"><b>Tidy books</b><small>Clean categories and a monthly close</small></a>
           </div>
@@ -479,7 +481,7 @@ textarea { resize: vertical; min-height: 104px; }
   <section class="tools gutter" aria-label="Tools we set up">
     <div class="inner">
       <span class="lbl">We set up the tools you already pay for</span>
-      <span class="names"><span>QuickBooks</span><span>Xero</span><span>Wave</span><span>Square</span><span>Shopify</span><span>ShipStation</span><span>Google Sheets</span></span>
+      <span class="names"><span>QuickBooks</span><span>Xero</span><span>Wave</span><span>Square</span><span>ADP</span><span>Paychex</span><span>Gusto</span><span>Shopify</span><span>ShipStation</span><span>Google Sheets</span></span>
     </div>
   </section>
 
@@ -493,7 +495,7 @@ textarea { resize: vertical; min-height: 104px; }
       </header>
       <div class="worries">
         <button class="worry" type="button" aria-pressed="false"><span class="area">Getting paid</span><span class="face q">"I do the invoices on Sunday night."</span><span class="face fix"><b>What we set up</b>Invoices go out the day the job ends, from a template, with reminders that send themselves.</span><span class="hint">See the fix</span></button>
-        <button class="worry" type="button" aria-pressed="false"><span class="area">Paying bills</span><span class="face q">"We paid that bill twice."</span><span class="face fix"><b>What we set up</b>One inbox for bills and one pay day a week. Every bill is checked once, then filed.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Paying bills</span><span class="face q">"We paid that bill twice."</span><span class="face fix"><b>What we set up</b>One inbox for bills and one day a week to pay them. Every bill is checked once, then filed.</span><span class="hint">See the fix</span></button>
         <button class="worry" type="button" aria-pressed="false"><span class="area">Stock</span><span class="face q">"We ran out again, and nobody noticed."</span><span class="face fix"><b>What we set up</b>Reorder points on the things that matter. The list tells you before the shelf does.</span><span class="hint">See the fix</span></button>
         <button class="worry" type="button" aria-pressed="false"><span class="area">Customer updates</span><span class="face q">"Customers keep calling to ask where their order is."</span><span class="face fix"><b>What we set up</b>Tracking goes out with the label, and a delay sends its own polite note.</span><span class="hint">See the fix</span></button>
         <button class="worry" type="button" aria-pressed="false"><span class="area">Tidy books</span><span class="face q">"My accountant charges me to clean up the books."</span><span class="face fix"><b>What we set up</b>Clean categories and a fifteen-minute monthly close. Your accountant gets tidy books.</span><span class="hint">See the fix</span></button>
@@ -557,7 +559,7 @@ textarea { resize: vertical; min-height: 104px; }
               <ul class="f-list">
                 <li><span class="ic doc"></span><span><b>Check-up report</b><small>PDF · 4 pages</small></span><em>You see this</em></li>
                 <li><span class="ic doc"></span><span><b>How we do it now</b><small>One page for the team</small></span><em>You see this</em></li>
-                <li><span class="ic sheet"></span><span><b>Pay-run checklist</b><small>Google Sheet · every Monday</small></span></li>
+                <li><span class="ic sheet"></span><span><b>Bill-run checklist</b><small>Google Sheet · every Monday</small></span></li>
                 <li><span class="ic dir"></span><span><b>Invoice templates</b><small>3 items · QuickBooks</small></span></li>
                 <li><span class="ic sheet"></span><span><b>Parts and reorder points</b><small>Google Sheet · 42 parts</small></span></li>
               </ul>
@@ -571,8 +573,8 @@ textarea { resize: vertical; min-height: 104px; }
           <svg class="bg-ink" viewBox="0 0 400 300" aria-hidden="true"><rect x="70" y="60" width="200" height="190" rx="6"/><line x1="70" y1="100" x2="270" y2="100"/><line x1="110" y1="46" x2="110" y2="74"/><line x1="230" y1="46" x2="230" y2="74"/><line x1="70" y1="150" x2="270" y2="150"/><line x1="70" y1="200" x2="270" y2="200"/><line x1="137" y1="100" x2="137" y2="250"/><line x1="203" y1="100" x2="203" y2="250"/><path d="M300 200 L300 250 Q300 262 312 262 L344 262 Q356 262 356 250 L356 200 Z M356 214 Q374 214 374 228 Q374 242 356 242"/><path d="M316 186 Q312 176 318 168 M332 186 Q328 176 334 168"/></svg>
           <div class="s-words">
             <h3>Keep</h3>
-            <p class="s-lede">A monthly plan for the running. Built for the pay run, the books check and small changes. Designed to cost less than one late fee a week.</p>
-            <ul class="s-list"><li>The pay run done with you, every week or two</li><li>A monthly books check before your accountant sees them</li><li>Small fixes as the business changes</li></ul>
+            <p class="s-lede">A monthly plan for the running. Built for the bill run, the books check and small changes. Designed so you approve every payment.</p>
+            <ul class="s-list"><li>The bill run prepared with you, every week or two</li><li>A monthly books check before your accountant sees them</li><li>Small fixes as the business changes</li></ul>
             <p class="s-meta">Monthly · cancel any time · we never hold your money</p>
             <a class="call" href="#contact">Ask about Keep</a>
           </div>
@@ -580,13 +582,13 @@ textarea { resize: vertical; min-height: 104px; }
             <div class="card plan">
               <div class="lh"><span>December · Keep plan</span><span>Example</span></div>
               <ul class="p-list">
-                <li class="ok"><span class="d">Mon 1</span><span>Pay run, 6 bills</span><i></i></li>
+                <li class="ok"><span class="d">Mon 1</span><span>Bill run, 6 bills</span><i></i></li>
                 <li class="ok"><span class="d">Fri 5</span><span>Books check</span><i></i></li>
-                <li><span class="d">Mon 15</span><span>Pay run</span><i></i></li>
+                <li><span class="d">Mon 15</span><span>Bill run</span><i></i></li>
                 <li><span class="d">Wed 31</span><span>Month-end close</span><i></i></li>
               </ul>
             </div>
-            <div class="card chip float"><span class="dot">+</span><span><small>Small fix</small>New supplier added to the pay run</span></div>
+            <div class="card chip float"><span class="dot">+</span><span><small>Small fix</small>New supplier added to the bill run</span></div>
           </div>
         </article>
       </div>
@@ -668,8 +670,9 @@ textarea { resize: vertical; min-height: 104px; }
         </div>
         <div class="dont">
           <span class="lbl">What we don't do</span>
-          <p><b>Tax advice or audits.</b> We work alongside your accountant and hand them tidier books.</p>
-          <p><b>Hold your money.</b> Payments always go from your own accounts, with your approval.</p>
+          <p><b>Tax advice, tax filing or audits.</b> We work alongside your accountant and hand them tidier books.</p>
+          <p><b>Payroll or payroll taxes.</b> Payroll stays with a payroll service like ADP, Paychex or Gusto, which files and pays its taxes. We connect it to your books.</p>
+          <p><b>Hold or move your money.</b> Payments go from your own accounts. You approve and send each one.</p>
           <p><b>Lock you in.</b> Everything lives in a folder you own, on tools you already pay for.</p>
         </div>
       </div>
@@ -700,9 +703,10 @@ textarea { resize: vertical; min-height: 104px; }
       <header class="sec-head"><span class="lbl">Questions</span><h2 id="faq-h">Before you book.</h2></header>
       <div class="qs">
         <details><summary>Do I have to change software?</summary><p>Usually not. Most fixes use what you already pay for. If a tool is costing you more than it saves, we'll say so and show you the numbers.</p></details>
-        <details><summary>Are you an accountant?</summary><p>No. We set up the systems and keep them running. Your accountant does tax and advice, and gets tidier books from us.</p></details>
+        <details><summary>Are you an accountant?</summary><p>No. We're not a CPA firm, and we don't give tax, legal or investment advice. We set up the systems and keep them running. Your accountant does tax and advice, and gets tidier books from us. If you don't have one, we'll suggest you find one.</p></details>
+        <details><summary>Do you run payroll?</summary><p>No. Payroll and its taxes stay with a payroll service like ADP, Paychex or Gusto, which files and pays them on time. We use the one you have, connect it to your books, and check the numbers match.</p></details>
         <details><summary>How long does a Check-up take?</summary><p>About two hours with you, then the report within a week.</p></details>
-        <details><summary>Will you see my bank accounts?</summary><p>Only what you choose to share, read-only where possible. We never move money without your approval.</p></details>
+        <details><summary>Will you see my bank accounts?</summary><p>Only what you choose to share, read-only where possible. We prepare the list of bills; you approve and send every payment. We never sign checks or hold logins that can move money.</p></details>
         <details><summary>Can you work remotely?</summary><p>Yes, over a video call with screen sharing. In person if you're nearby.</p></details>
         <details><summary>What if I only want one thing fixed?</summary><p>That's fine. Tell us on the call and we'll quote just that.</p></details>
       </div>
@@ -757,7 +761,8 @@ textarea { resize: vertical; min-height: 104px; }
     <nav class="f-col" aria-label="Studio"><span class="lbl">Studio</span><a href="#how">How it works</a><a href="#work">Work</a><a href="#about">About</a><a href="#faq">Questions</a><a href="#contact">Contact</a></nav>
     <div class="f-col"><span class="lbl">Say hello</span><a href="mailto:martinandfinch90@gmail.com">martinandfinch90@gmail.com</a><span>East Coast, United States</span></div>
   </div>
-  <div class="inner f-base"><span>© 2026 Martin and Finch</span><span>We never hold client money. We work alongside your accountant.</span></div>
+  <div class="inner f-base"><span>© 2026 Martin and Finch · <a href="privacy.html">Privacy</a></span><span>We never hold client money. We work alongside your accountant.</span></div>
+  <p class="inner f-fine">Businesses in the examples are made up. QuickBooks, Xero, ADP, Paychex, Gusto and the other names on this page belong to their owners; we're not affiliated with them. Nothing on this site is tax, legal or financial advice.</p>
 </footer>
 
 <script>
