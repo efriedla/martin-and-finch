@@ -1,6 +1,6 @@
-# Martin & Finch
+# Martin and Finch
 
-The landing page for Martin & Finch, a back-office studio: clear systems that keep small businesses running (bills, invoices, stock, shipping, customer updates).
+The landing page for Martin and Finch, a back-office studio: clear systems that keep small businesses running (bills, invoices, stock, shipping, customer updates).
 
 - One static page: `index.html`, with no build step and no framework.
 - Fonts: Work Sans (headings, labels, buttons) and Alegreya Sans (text), from Google Fonts.
