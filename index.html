@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Martin &amp; Finch · Back-office studio</title>
+<meta name="description" content="Clear systems that keep your business running. Built for bills, invoices, stock and shipping. Designed for owner-run teams of one to fifteen.">
+<meta property="og:title" content="Martin &amp; Finch · Back-office studio">
+<meta property="og:description" content="Clear systems that keep your business running. Built for bills, invoices, stock and shipping.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0f1f33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f1f33'/%3E%3Ctext x='32' y='41' font-family='Arial' font-size='22' text-anchor='middle' fill='%23f3ecdc' letter-spacing='1'%3EM%26amp;F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+/* Layout: Linear-clean top bar; split hero (navy words left, sand "shop" right with an ink drawing and floating ledger cards); a quiet tools strip beneath. */
+:root {
+  --navy: #0f1f33;
+  --navy-2: #172a42;
+  --paper: #f6f1e7;
+  --sheet: #fffdf8;
+  --sand: #e9dfc8;
+  --brass: #8a7342;
+  --brass-lt: #c9b78a;
+  --oxblood: #6e2a2a;
+  --oxblood-hi: #84343a;
+  --ink: #142235;
+  --ink-soft: #4f5a6a;
+  --rule: #d9cfbb;
+  --ok: #3d6b4f;
+  --on-navy: #f3ecdc;
+  --on-navy-soft: #c3c9d3;
+  --display: "Work Sans", Arial, Helvetica, sans-serif;
+  --body: "Alegreya Sans", Arial, Helvetica, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #0c1522; --sheet: #142033; --sand: #1a273a; --ink: #ece5d6; --ink-soft: #a9b0bc; --rule: #2c3a4f; --brass: #c9ad6e; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #0c1522; --sheet: #142033; --sand: #1a273a; --ink: #ece5d6; --ink-soft: #a9b0bc; --rule: #2c3a4f; --brass: #c9ad6e; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+img { max-width: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--brass-lt); outline-offset: 3px; border-radius: 2px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.inner { max-width: 1240px; margin: 0 auto; }
+
+/* ---------- Top bar ---------- */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.bar .inner { display: flex; align-items: center; gap: 28px; min-height: 68px; }
+.mark { display: grid; text-decoration: none; line-height: 1.1; }
+.mark b { font: 500 15px/1.1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
+.mark span { font: 400 10.5px/1.4 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
+.nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav > a, .nav > .has-menu > button { font: 400 14.5px/1 var(--display); letter-spacing: .25px; color: var(--ink); text-decoration: none; background: none; border: 0; padding: 10px 12px; border-radius: 4px; cursor: pointer; }
+.nav > a:hover, .nav > .has-menu > button:hover, .nav > .has-menu > button[aria-expanded="true"] { background: var(--sand); }
+.has-menu { position: relative; }
+.has-menu > button::after { content: ""; display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-3px) rotate(45deg); margin-left: 8px; }
+.menu { position: absolute; top: calc(100% + 10px); left: -12px; width: min(620px, calc(100vw - 32px)); background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 24px 60px -30px rgba(15,31,51,.45); padding: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
+.menu[hidden] { display: none; }
+.menu-group { display: grid; gap: 2px; align-content: start; }
+.menu-group > span { font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); padding: 8px 10px 6px; }
+.menu a { display: grid; gap: 1px; text-decoration: none; padding: 8px 10px; border-radius: 4px; }
+.menu a:hover { background: var(--sand); }
+.menu a b { font: 500 15px/1.3 var(--display); letter-spacing: .25px; }
+.menu a small { font-size: 15px; color: var(--ink-soft); line-height: 1.35; }
+.call { font: 500 14.5px/1 var(--display); letter-spacing: .25px; color: #fbf6ea; background: var(--oxblood); padding: 13px 18px; border-radius: 3px; text-decoration: none; white-space: nowrap; transition: background-color .2s; }
+.call:hover { background: var(--oxblood-hi); }
+.burger { display: none; margin-left: auto; background: none; border: 1px solid var(--rule); border-radius: 4px; padding: 10px 12px; font: 500 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .bar .call { display: none; }
+  .burger { display: inline-block; }
+  .bar.open .nav { display: grid; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); gap: 2px; }
+  .bar.open .nav > a, .bar.open .nav > .has-menu > button { width: 100%; text-align: left; padding: 14px 8px; font-size: 16px; }
+  .menu { position: static; width: auto; box-shadow: none; grid-template-columns: 1fr; margin: 4px 0 8px; }
+  .bar.open .nav .call-m { display: block; margin-top: 10px; text-align: center; }
+}
+.call-m { display: none; }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+.words { background: var(--navy); color: var(--on-navy); display: grid; align-content: center;
+  padding-block: clamp(56px, 9vw, 120px); padding-left: max(16px, env(safe-area-inset-left, 0px), calc((100vw - 1240px) / 2)); padding-right: clamp(20px, 5vw, 72px); }
+.words .in { display: grid; gap: 24px; max-width: 560px; }
+.kicker { font: italic 400 20px/1.35 var(--body); color: var(--brass-lt); }
+h1 { margin: 0; font: 300 clamp(36px, 4.6vw, 58px)/1.08 var(--display); letter-spacing: .25px; color: #fbf6ea; text-wrap: balance; }
+.lede { margin: 0; font-size: 19.5px; color: var(--on-navy-soft); max-width: 46ch; }
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.ctas .call { font-size: 16px; padding: 16px 22px; }
+.ctas .soft { font: 400 15.5px/1 var(--display); letter-spacing: .25px; color: var(--on-navy); text-decoration: none; border-bottom: 1px solid rgba(243,236,220,.4); padding-bottom: 4px; }
+.ctas .soft:hover { border-color: var(--on-navy); }
+.promise { display: flex; flex-wrap: wrap; gap: 8px 22px; padding-top: 22px; border-top: 1px solid rgba(201,183,138,.25); font: 400 12px/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--brass-lt); }
+
+.scene { position: relative; background: var(--sand); overflow: hidden; min-height: 560px; padding: 32px max(16px, env(safe-area-inset-right, 0px)) 32px 16px; }
+@media (max-width: 900px) { .scene { min-height: 0; padding: 28px max(16px, env(safe-area-inset-right, 0px)) 36px max(16px, env(safe-area-inset-left, 0px)); } }
+.drawing { position: absolute; inset: auto 0 0 0; width: 100%; height: 56%; color: var(--ink); opacity: .78; }
+@media (max-width: 900px) { .drawing { position: relative; height: auto; inset: auto; margin-top: -8px; } }
+.drawing path, .drawing line, .drawing rect, .drawing circle, .drawing polyline { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.drawing .fine { stroke-width: 1; opacity: .6; }
+.drawing .fill-brass { fill: var(--brass-lt); fill-opacity: .35; stroke: none; }
+.draw { stroke-dasharray: var(--len, 1200); stroke-dashoffset: var(--len, 1200); animation: ink 2.4s cubic-bezier(.45,.05,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes ink { to { stroke-dashoffset: 0; } }
+
+.cards { position: relative; z-index: 2; display: grid; gap: 14px; max-width: 560px; margin-left: auto; margin-right: auto; }
+@media (min-width: 901px) { .cards { position: absolute; inset: 0; max-width: none; margin: 0; display: block; } }
+.card { background: var(--sheet); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 0 22px 50px -28px rgba(15,31,51,.55), 0 2px 6px -2px rgba(15,31,51,.12); }
+@media (min-width: 901px) { .cards .card { position: absolute; animation: bob 7s ease-in-out infinite; } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+.ledger { padding: 18px 20px 14px; width: min(400px, 100%); }
+@media (min-width: 901px) { .ledger { top: 7%; left: 8%; } }
+.lh { display: flex; justify-content: space-between; gap: 12px; font: 500 10.5px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); border-bottom: 1px solid var(--rule); padding-bottom: 10px; margin-bottom: 2px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto 20px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--rule); font-size: 16px; transition: color .5s, opacity .5s; }
+.row .amt { font-variant-numeric: tabular-nums; }
+.row i { font-style: normal; font: 600 12px/1 var(--display); text-align: center; }
+.row.bad { color: var(--oxblood); }
+.row.bad i::after { content: "!"; }
+.row.ok i::after { content: "✓"; color: var(--ok); }
+.row.dup { text-decoration: line-through; opacity: .45; }
+.row.dup i::after { content: "×"; }
+.tot { display: flex; justify-content: space-between; padding-top: 12px; font: 500 15px/1 var(--display); letter-spacing: .25px; font-variant-numeric: tabular-nums; }
+
+.chip { display: flex; gap: 12px; align-items: center; padding: 12px 16px; font-size: 15.5px; line-height: 1.3; }
+.chip .dot { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 13px/1 var(--display); background: var(--sand); color: var(--ink); transition: background-color .5s, color .5s; }
+.chip.done .dot { background: var(--ok); color: #fff; }
+.chip small { display: block; font: 500 10.5px/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+@media (min-width: 901px) {
+  .c-ship { top: 30%; right: 5%; animation-delay: -2s; }
+  .c-stock { top: 42%; left: 5%; animation-delay: -4.5s; }
+}
+.replay { all: unset; cursor: pointer; position: absolute; z-index: 3; right: max(16px, env(safe-area-inset-right, 0px)); top: 14px; font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); padding: 6px; }
+@media (max-width: 900px) { .replay { position: static; display: block; margin: 14px auto 0; text-align: center; } }
+
+/* ---------- Tools strip ---------- */
+.tools { border-bottom: 1px solid var(--rule); }
+.tools .inner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 34px; padding-block: 22px; }
+.tools .lbl { font: 500 11px/1.3 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
+.tools .names { display: flex; flex-wrap: wrap; gap: 6px 28px; font: 400 17px/1.2 var(--display); letter-spacing: .25px; color: var(--ink-soft); }
+
+/* ---------- Section heads ---------- */
+.sec-head { display: grid; gap: 12px; margin-bottom: 40px; }
+.lbl { font: 500 11px/1.3 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
+.sec-head h2 { margin: 0; font: 300 clamp(30px, 3.6vw, 46px)/1.12 var(--display); letter-spacing: .25px; max-width: 22ch; text-wrap: balance; }
+.sec-head p { margin: 0; color: var(--ink-soft); max-width: 56ch; }
+.sec-head.on-navy .lbl { color: var(--brass-lt); }
+.sec-head.on-navy h2 { color: #fbf6ea; }
+
+/* ---------- Sound familiar? ---------- */
+.familiar { padding-block: clamp(64px, 9vw, 112px); }
+.worries { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 980px) { .worries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .worries { grid-template-columns: minmax(0, 1fr); } .worry { min-height: 168px; } }
+.worry { all: unset; box-sizing: border-box; cursor: pointer; position: relative; display: grid; grid-template-areas: "area" "face" "hint"; grid-template-rows: auto 1fr auto; gap: 14px; min-height: 210px; padding: 22px 22px 18px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; transition: border-color .25s, box-shadow .25s, transform .25s; }
+.worry:hover { border-color: var(--brass); box-shadow: 0 18px 40px -30px rgba(15,31,51,.5); transform: translateY(-2px); }
+.worry:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.worry .area { grid-area: area; font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
+.worry .face { grid-area: face; align-self: center; transition: opacity .35s, transform .35s; }
+.worry .q { font: italic 400 clamp(21px, 2vw, 25px)/1.3 var(--body); color: var(--ink); }
+.worry .fix { font-size: 17.5px; line-height: 1.45; color: var(--ink); opacity: 0; transform: translateY(8px); pointer-events: none; }
+.worry .fix b { display: block; font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--ok); margin-bottom: 10px; }
+.worry .hint { grid-area: hint; font: 400 13.5px/1 var(--display); letter-spacing: .25px; color: var(--ink-soft); }
+.worry .hint::after { content: " →"; }
+.worry[aria-pressed="true"] { border-color: var(--ok); }
+.worry[aria-pressed="true"] .q { opacity: 0; transform: translateY(-8px); }
+.worry[aria-pressed="true"] .fix { opacity: 1; transform: none; }
+
+/* ---------- How it works ---------- */
+.how { background: var(--navy); color: var(--on-navy); padding-block: clamp(64px, 9vw, 112px); overflow: hidden; }
+.timeline { list-style: none; margin: 0 0 28px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.timeline button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; gap: 6px; padding: 4px 0; }
+.timeline button:focus-visible { outline: 2px solid var(--brass-lt); outline-offset: 4px; }
+.timeline .n { font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass-lt); }
+.timeline .t { font: 300 clamp(20px, 2.2vw, 26px)/1.1 var(--display); letter-spacing: .25px; color: var(--on-navy-soft); transition: color .3s; }
+.timeline [aria-selected="true"] .t { color: #fbf6ea; }
+.timeline .bar { height: 2px; background: rgba(201,183,138,.22); margin-top: 8px; overflow: hidden; }
+.timeline .bar i { display: block; height: 100%; width: 0; background: var(--brass-lt); }
+.timeline .done .bar i { width: 100%; }
+.timeline [aria-selected="true"] .bar i { animation: fill var(--dur, 9s) linear forwards; }
+.how:hover .timeline [aria-selected="true"] .bar i, .how:focus-within .timeline [aria-selected="true"] .bar i { animation-play-state: paused; }
+.how.paused .timeline [aria-selected="true"] .bar i { animation: none; width: 100%; }
+.slide[hidden] { display: none; }
+@keyframes fill { from { width: 0; } to { width: 100%; } }
+
+.slides { position: relative; }
+.slide { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(28px, 4vw, 48px); background: var(--navy-2); border: 1px solid rgba(201,183,138,.18); border-radius: 8px; min-height: 460px; overflow: hidden; }
+.slide.on { animation: slideIn .6s cubic-bezier(.2,.7,.2,1); }
+@keyframes slideIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) { .slide { grid-template-columns: minmax(0, 1fr); min-height: 0; } }
+.bg-ink { position: absolute; right: -40px; bottom: -40px; width: min(520px, 70%); height: auto; opacity: .1; pointer-events: none; }
+.bg-ink * { fill: none; stroke: #f3ecdc; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.s-words { position: relative; display: grid; gap: 16px; align-content: start; }
+.s-words h3 { margin: 0; font: 300 clamp(34px, 4vw, 52px)/1 var(--display); letter-spacing: .25px; color: #fbf6ea; }
+.s-lede { margin: 0; font-size: 19.5px; color: var(--on-navy); max-width: 44ch; }
+.s-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--on-navy-soft); }
+.s-list li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.s-list li::before { content: ""; width: 8px; height: 8px; margin-top: 9px; border: 1.5px solid var(--brass-lt); border-radius: 50%; }
+.s-meta { margin: 0; font: 400 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--brass-lt); }
+.s-words .call { justify-self: start; font-size: 15.5px; padding: 15px 20px; }
+.s-show { position: relative; display: grid; gap: 14px; justify-items: center; }
+.s-show .card { width: min(420px, 100%); }
+.s-show .float { justify-self: end; width: auto; margin-top: -30px; margin-right: -6px; animation: bob 7s ease-in-out infinite; }
+@media (max-width: 900px) { .s-show .float { margin-top: 0; margin-right: 0; justify-self: start; } }
+
+.report, .folder, .plan { padding: 18px 20px 16px; }
+.r-title { margin: 12px 0 0; font: 400 21px/1.2 var(--display); letter-spacing: .25px; }
+.r-sub { margin: 4px 0 12px; color: var(--ink-soft); font-size: 16px; }
+.r-list { margin: 0; padding: 0; list-style: none; counter-reset: r; display: grid; gap: 10px; }
+.r-list li { counter-increment: r; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; font-size: 15.5px; line-height: 1.4; color: var(--ink-soft); }
+.r-list li::before { content: counter(r); width: 22px; height: 22px; border-radius: 50%; background: var(--navy); color: #fbf6ea; display: grid; place-items: center; font: 500 12px/1 var(--display); }
+.r-list b { color: var(--ink); font-weight: 500; }
+.f-list, .p-list { margin: 8px 0 0; padding: 0; list-style: none; display: grid; }
+.f-list li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px dashed var(--rule); }
+.f-list li:last-child { border-bottom: 0; }
+.f-list b { display: block; font: 500 15px/1.25 var(--display); letter-spacing: .25px; }
+.f-list small { color: var(--ink-soft); font-size: 14.5px; }
+.f-list em { font: 500 10.5px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; font-style: normal; color: var(--brass); background: var(--sand); padding: 5px 7px; border-radius: 3px; white-space: nowrap; }
+@media (max-width: 600px) {
+  .f-list li { grid-template-columns: 30px minmax(0, 1fr); }
+  .f-list em { grid-column: 2; justify-self: start; }
+  .timeline .opt { display: none; }
+  .slide { padding: 24px 18px; }
+}
+.ic { width: 26px; height: 30px; border-radius: 3px; position: relative; }
+.ic.doc { border: 1.5px solid var(--ink-soft); }
+.ic.doc::after { content: ""; position: absolute; left: 5px; right: 5px; top: 8px; height: 10px; border-top: 1.5px solid var(--ink-soft); border-bottom: 1.5px solid var(--ink-soft); }
+.ic.sheet { background: var(--ok); }
+.ic.sheet::after { content: ""; position: absolute; inset: 7px 5px; border: 1.5px solid #fff; border-width: 1.5px 0; }
+.ic.dir { background: var(--brass-lt); height: 22px; margin-top: 4px; }
+.p-list li { display: grid; grid-template-columns: 64px minmax(0, 1fr) 20px; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px dashed var(--rule); font-size: 16px; }
+.p-list li:last-child { border-bottom: 0; }
+.p-list .d { font: 500 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--brass); }
+.p-list i { width: 16px; height: 16px; border: 1.5px solid var(--rule); border-radius: 50%; }
+.p-list .ok i { border-color: var(--ok); background: var(--ok); position: relative; }
+.p-list .ok i::after { content: "✓"; position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font: 600 10px/1 var(--display); }
+.p-list .ok span:nth-child(2) { color: var(--ink-soft); }
+
+/* ---------- Work ---------- */
+.work { padding-block: clamp(64px, 9vw, 112px); }
+.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 980px) { .cases { grid-template-columns: minmax(0, 1fr); max-width: 560px; } }
+.case { display: grid; gap: 10px; align-content: start; }
+.case .pic { position: relative; aspect-ratio: 4 / 3; max-width: 100%; background: var(--sand); border-radius: 6px; display: grid; place-items: center; padding: 22px; overflow: hidden; }
+.case .pic .mini { width: min(270px, 88%); padding: 14px 16px 10px; }
+.case .pic .float-s { position: absolute; right: 12px; bottom: 14px; animation: bob 7s ease-in-out infinite; }
+.case:nth-child(2) .float-s { animation-delay: -2.5s; }
+.case:nth-child(3) .float-s { animation-delay: -5s; }
+.case .tags { margin-top: 8px; font: 500 11px/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.case h3 { margin: 0; font: 400 23px/1.2 var(--display); letter-spacing: .25px; }
+.case p { margin: 0; color: var(--ink-soft); font-size: 17px; }
+.m-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--rule); font-size: 15px; font-variant-numeric: tabular-nums; }
+.m-row:last-child { border-bottom: 0; }
+.m-row.tot { font: 500 14px/1.2 var(--display); letter-spacing: .25px; }
+.m-row i { width: 14px; height: 14px; border: 1.5px solid var(--rule); border-radius: 50%; }
+.m-row.ok span { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: var(--rule); }
+.m-row.ok i { background: var(--ok); border-color: var(--ok); }
+.days { display: flex; gap: 6px; padding: 10px 0 6px; }
+.days .d { flex: 1; text-align: center; font: 500 11px/26px var(--display); border-radius: 3px; background: var(--paper); color: var(--ink-soft); }
+.days .d.on { background: var(--navy); color: #fbf6ea; }
+.case .chip { padding: 9px 12px; font-size: 14px; gap: 10px; }
+.case .chip .dot { width: 24px; height: 24px; font-size: 11px; }
+
+/* ---------- Who ---------- */
+.who { padding-block: 0 clamp(64px, 9vw, 112px); }
+.who-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); border-top: 1px solid var(--rule); padding-top: clamp(48px, 7vw, 88px); }
+@media (max-width: 900px) { .who-grid { grid-template-columns: minmax(0, 1fr); } }
+.kinds { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.kinds li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: center; }
+.kinds svg { width: 48px; height: 48px; }
+.kinds svg path { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.kinds b { display: block; font: 400 19px/1.3 var(--display); letter-spacing: .25px; }
+.kinds span { color: var(--ink-soft); }
+.dont { display: grid; gap: 14px; align-content: start; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 26px; }
+.dont .lbl { color: var(--oxblood); }
+.dont p { margin: 0; color: var(--ink-soft); }
+.dont b { color: var(--ink); font-weight: 500; }
+
+/* ---------- About ---------- */
+.about { background: var(--sand); padding-block: clamp(64px, 9vw, 112px); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(28px, 6vw, 96px); align-items: center; }
+@media (max-width: 900px) { .about-grid { grid-template-columns: minmax(0, 1fr); } }
+.monogram { width: min(300px, 70%); height: auto; justify-self: center; }
+.monogram circle, .monogram path { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.monogram .fine { stroke-width: .8; opacity: .55; }
+.monogram text { font: 300 48px var(--display); letter-spacing: 4px; fill: var(--ink); }
+.about-words { display: grid; gap: 16px; }
+.about-words h2 { margin: 0; font: 300 clamp(30px, 3.6vw, 46px)/1.12 var(--display); letter-spacing: .25px; max-width: 20ch; text-wrap: balance; }
+.about-words p { margin: 0; max-width: 58ch; }
+.about-words .where { font: 400 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--brass); }
+
+/* ---------- Questions ---------- */
+.faq { padding-block: clamp(64px, 9vw, 112px); }
+.faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(20px, 5vw, 72px); align-items: start; }
+@media (max-width: 900px) { .faq-grid { grid-template-columns: minmax(0, 1fr); } }
+.qs details { border-bottom: 1px solid var(--rule); }
+.qs details:first-child { border-top: 1px solid var(--rule); }
+.qs summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 20px 2px; font: 400 19px/1.35 var(--display); letter-spacing: .25px; }
+.qs summary::-webkit-details-marker { display: none; }
+.qs summary::after { content: "+"; font: 300 24px/1 var(--display); color: var(--brass); transition: transform .25s; }
+.qs details[open] summary::after { transform: rotate(45deg); }
+.qs details p { margin: 0 0 20px; color: var(--ink-soft); max-width: 60ch; }
+
+/* ---------- Contact ---------- */
+.contact { background: var(--navy); color: var(--on-navy); padding-block: clamp(64px, 9vw, 112px); }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 6vw, 88px); align-items: start; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr); } }
+.c-words { display: grid; gap: 16px; }
+.c-words .lbl { color: var(--brass-lt); }
+.c-words h2 { margin: 0; font: 300 clamp(32px, 4vw, 52px)/1.08 var(--display); letter-spacing: .25px; color: #fbf6ea; text-wrap: balance; }
+.c-words p { margin: 0; color: var(--on-navy-soft); }
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 8px; }
+.addr { font: 400 18px/1.3 var(--display); letter-spacing: .25px; color: #fbf6ea; word-break: break-all; text-decoration: none; border-bottom: 1px solid rgba(243,236,220,.35); }
+.addr:hover { border-color: #fbf6ea; }
+.send[disabled] { opacity: .6; cursor: wait; }
+.form-fail { font-size: 15px; color: var(--oxblood); margin: 0; }
+.copy { all: unset; cursor: pointer; font: 500 11px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--brass-lt); border: 1px solid rgba(201,183,138,.4); border-radius: 3px; padding: 8px 10px; }
+.copy:focus-visible { outline: 2px solid var(--brass-lt); outline-offset: 3px; }
+.c-words .note { font-size: 14.5px; opacity: .75; }
+.form-card { padding: clamp(22px, 3vw, 32px); }
+form { display: grid; gap: 16px; }
+.f-field { display: grid; gap: 6px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.f-field > label, legend { font: 500 13px/1.2 var(--display); letter-spacing: .25px; color: var(--ink); padding: 0; }
+.opt-l { color: var(--ink-soft); font-weight: 400; }
+input[type=text], input[type=email], textarea { font: 400 17px/1.4 var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 11px 12px; width: 100%; }
+input[type=text]:focus, input[type=email]:focus, textarea:focus { outline: 2px solid var(--brass); outline-offset: 1px; border-color: var(--brass); }
+textarea { resize: vertical; min-height: 104px; }
+[aria-invalid="true"] { border-color: var(--oxblood) !important; }
+.err { font-size: 14.5px; color: var(--oxblood); }
+.times { display: flex; flex-wrap: wrap; gap: 8px; }
+.times legend { width: 100%; margin-bottom: 6px; }
+.times label { cursor: pointer; }
+.times input { position: absolute; opacity: 0; pointer-events: none; }
+.times span { display: inline-block; font: 400 14.5px/1 var(--display); letter-spacing: .25px; padding: 10px 14px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-soft); }
+.times input:checked + span { background: var(--navy); border-color: var(--navy); color: #fbf6ea; }
+.times input:focus-visible + span { outline: 2px solid var(--brass); outline-offset: 2px; }
+.send { justify-self: start; border: 0; cursor: pointer; font-size: 15.5px; padding: 15px 26px; }
+.thanks { display: grid; gap: 12px; justify-items: start; padding: 10px 0; }
+.thanks h3 { margin: 0; font: 300 30px/1.1 var(--display); letter-spacing: .25px; }
+.thanks p { margin: 0; color: var(--ink-soft); }
+.dot.big { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--ok); color: #fff; font: 600 18px/1 var(--display); }
+.soft-btn { all: unset; cursor: pointer; font: 500 14px/1 var(--display); letter-spacing: .25px; border-bottom: 1px solid var(--rule); padding-bottom: 4px; }
+.thanks[hidden], form[hidden] { display: none; }
+
+/* ---------- Footer ---------- */
+.foot { background: var(--paper); padding-block: 56px 28px; border-top: 1px solid var(--rule); }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 900px) { .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .f-brand { grid-column: 1 / -1; } }
+.f-brand { display: grid; gap: 12px; align-content: start; }
+.f-brand p { margin: 0; color: var(--ink-soft); }
+.f-col { display: grid; gap: 8px; align-content: start; font-size: 16px; color: var(--ink-soft); }
+.f-col a { text-decoration: none; }
+.f-col a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.f-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 14.5px; color: var(--ink-soft); }
+
+.s-nav { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+.s-nav button { all: unset; cursor: pointer; min-width: 44px; height: 44px; display: grid; place-items: center; padding: 0 12px; box-sizing: border-box; border: 1px solid rgba(201,183,138,.35); border-radius: 4px; color: var(--on-navy); font: 400 16px/1 var(--display); }
+.s-nav button:hover { border-color: var(--brass-lt); }
+.s-nav button:focus-visible { outline: 2px solid var(--brass-lt); outline-offset: 3px; }
+.s-nav .pause { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+
+@media (prefers-reduced-motion: reduce) {
+  .draw { animation: none; stroke-dashoffset: 0; }
+  .card { animation: none !important; }
+  .row, .chip .dot { transition: none; }
+  .worry, .worry .face { transition: none; }
+  .slide.on { animation: none; }
+  .s-show .float { animation: none; }
+  .timeline [aria-selected="true"] .bar i { animation: none; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar gutter" id="bar">
+  <div class="inner">
+    <a class="mark" href="#top" aria-label="Martin and Finch, home"><b>Martin &amp; Finch</b><span>Back-office studio</span></a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <div class="has-menu">
+        <button type="button" id="svcBtn" aria-expanded="false" aria-controls="svcMenu">Services</button>
+        <div class="menu" id="svcMenu" hidden>
+          <div class="menu-group"><span>Money in and out</span>
+            <a href="#familiar"><b>Paying bills</b><small>One inbox, a set pay day, no late fees</small></a>
+            <a href="#familiar"><b>Getting paid</b><small>Invoices out on time, polite reminders</small></a>
+            <a href="#familiar"><b>Tidy books</b><small>Clean categories and a monthly close</small></a>
+          </div>
+          <div class="menu-group"><span>Goods and customers</span>
+            <a href="#familiar"><b>Stock</b><small>Reorder points, a count in minutes</small></a>
+            <a href="#familiar"><b>Shipping</b><small>Labels from your shop, tracking sent</small></a>
+            <a href="#familiar"><b>Customer updates</b><small>Status messages and follow-ups</small></a>
+          </div>
+        </div>
+      </div>
+      <a href="#how">How it works</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a class="call call-m" href="#contact">Book a free call</a>
+    </nav>
+    <a class="call" href="#contact">Book a free call</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h">
+    <div class="words">
+      <div class="in">
+        <p class="kicker">Still doing the invoices on Sunday night?</p>
+        <h1 id="h">Clear systems that keep your business running.</h1>
+        <p class="lede">Built for bills, invoices, stock and shipping. Designed for owner-run teams of one to fifteen.</p>
+        <div class="ctas">
+          <a class="call" href="#contact">Book a free 20-minute call</a>
+          <a class="soft" href="#how">See how it works</a>
+        </div>
+        <div class="promise"><span>Fixed prices</span><span>Plain English</span><span>Your accountant stays</span></div>
+      </div>
+    </div>
+
+    <div class="scene" aria-label="A small shop whose paperwork sorts itself out">
+      <svg class="drawing" viewBox="0 150 620 360" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <!-- ground -->
+        <line class="draw" style="--len:620;--d:.1s" x1="-10" y1="500" x2="610" y2="500"/>
+        <!-- shop body -->
+        <rect class="draw" style="--len:1100;--d:.2s" x="250" y="230" width="300" height="270"/>
+        <polyline class="draw" style="--len:400;--d:.35s" points="238,232 400,168 562,232"/>
+        <line class="draw fine" style="--len:320;--d:.5s" x1="250" y1="262" x2="550" y2="262"/>
+        <!-- awning with scallops -->
+        <path class="draw" style="--len:900;--d:.6s" d="M244 278 L556 278 L556 300 Q541 316 526 300 Q511 316 496 300 Q481 316 466 300 Q451 316 436 300 Q421 316 406 300 Q391 316 376 300 Q361 316 346 300 Q331 316 316 300 Q301 316 286 300 Q271 316 256 300 Q250 308 244 300 Z"/>
+        <path class="fill-brass" d="M244 278 L556 278 L556 300 Q541 316 526 300 Q511 316 496 300 Q481 316 466 300 Q451 316 436 300 Q421 316 406 300 Q391 316 376 300 Q361 316 346 300 Q331 316 316 300 Q301 316 286 300 Q271 316 256 300 Q250 308 244 300 Z"/>
+        <!-- window + sign -->
+        <rect class="draw" style="--len:640;--d:.9s" x="272" y="334" width="150" height="120"/>
+        <line class="draw fine" style="--len:130;--d:1.1s" x1="347" y1="334" x2="347" y2="454"/>
+        <line class="draw fine" style="--len:160;--d:1.1s" x1="272" y1="394" x2="422" y2="394"/>
+        <rect class="draw" style="--len:180;--d:1.3s" x="300" y="352" width="40" height="22"/>
+        <!-- door -->
+        <rect class="draw" style="--len:520;--d:1s" x="448" y="330" width="78" height="170"/>
+        <circle class="draw" style="--len:20;--d:1.6s" cx="512" cy="418" r="3"/>
+        <line class="draw fine" style="--len:60;--d:1.4s" x1="458" y1="346" x2="516" y2="346"/>
+        <!-- name board -->
+        <rect class="draw" style="--len:420;--d:.7s" x="330" y="200" width="140" height="26"/>
+        <!-- planter -->
+        <path class="draw" style="--len:200;--d:1.5s" d="M556 470 L600 470 L594 500 L562 500 Z"/>
+        <path class="draw" style="--len:220;--d:1.7s" d="M578 470 C572 450 560 444 556 432 M578 470 C582 448 594 440 598 426 M578 470 C578 452 576 440 580 424"/>
+        <!-- parcels -->
+        <rect class="draw" style="--len:260;--d:1.2s" x="180" y="444" width="62" height="56"/>
+        <line class="draw fine" style="--len:60;--d:1.6s" x1="211" y1="444" x2="211" y2="500"/>
+        <rect class="draw" style="--len:200;--d:1.4s" x="196" y="404" width="40" height="40"/>
+        <line class="draw fine" style="--len:40;--d:1.7s" x1="216" y1="404" x2="216" y2="444"/>
+        <!-- lamp post -->
+        <line class="draw" style="--len:300;--d:.4s" x1="96" y1="500" x2="96" y2="250"/>
+        <path class="draw" style="--len:160;--d:.9s" d="M80 250 L112 250 L106 228 L86 228 Z M96 228 L96 218"/>
+      </svg>
+
+      <div class="cards">
+        <div class="card ledger" aria-label="This week's ledger">
+          <div class="lh"><span>Week of 17 November</span><span>Owed to you</span></div>
+          <div class="row bad" data-fix="ok"><span>Invoice 1042, Harlow &amp; Sons</span><span class="amt">$1,240.00</span><i></i></div>
+          <div class="row bad" data-fix="ok"><span>Invoice 1043, Pell Florist</span><span class="amt">$385.50</span><i></i></div>
+          <div class="row bad" data-fix="dup"><span>Supplier bill, paid twice</span><span class="amt">$212.00</span><i></i></div>
+          <div class="row bad" data-fix="ok"><span>Receipts to file</span><span class="amt">14</span><i></i></div>
+          <div class="tot"><span>Collected this week</span><span id="tot">$0.00</span></div>
+        </div>
+        <div class="card chip c-ship" data-chip><span class="dot">88</span><span><small>Order 88</small><span class="msg" data-before="Waiting for a label" data-after="Shipped. Tracking sent to the customer">Waiting for a label</span></span></div>
+        <div class="card chip c-stock" data-chip><span class="dot">6</span><span><small>Stock</small><span class="msg" data-before="Oat milk: 6 left" data-after="Oat milk reordered. Arrives Thursday">Oat milk: 6 left</span></span></div>
+      </div>
+      <button class="replay" id="replay" type="button">Play it again</button>
+    </div>
+  </section>
+
+  <section class="tools gutter" aria-label="Tools we set up">
+    <div class="inner">
+      <span class="lbl">We set up the tools you already pay for</span>
+      <span class="names"><span>QuickBooks</span><span>Xero</span><span>Wave</span><span>Square</span><span>Shopify</span><span>ShipStation</span><span>Google Sheets</span></span>
+    </div>
+  </section>
+
+  <!-- ---------- Sound familiar? ---------- -->
+  <section class="familiar gutter" id="familiar" aria-labelledby="fam-h">
+    <div class="inner">
+      <header class="sec-head">
+        <span class="lbl">Sound familiar?</span>
+        <h2 id="fam-h">The small things that cost the most.</h2>
+        <p>Every business has a few. Tap one to see what we set up instead.</p>
+      </header>
+      <div class="worries">
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Getting paid</span><span class="face q">"I do the invoices on Sunday night."</span><span class="face fix"><b>What we set up</b>Invoices go out the day the job ends, from a template, with reminders that send themselves.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Paying bills</span><span class="face q">"We paid that bill twice."</span><span class="face fix"><b>What we set up</b>One inbox for bills and one pay day a week. Every bill is checked once, then filed.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Stock</span><span class="face q">"We ran out again, and nobody noticed."</span><span class="face fix"><b>What we set up</b>Reorder points on the things that matter. The list tells you before the shelf does.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Customer updates</span><span class="face q">"Customers keep calling to ask where their order is."</span><span class="face fix"><b>What we set up</b>Tracking goes out with the label, and a delay sends its own polite note.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Tidy books</span><span class="face q">"My accountant charges me to clean up the books."</span><span class="face fix"><b>What we set up</b>Clean categories and a fifteen-minute monthly close. Your accountant gets tidy books.</span><span class="hint">See the fix</span></button>
+        <button class="worry" type="button" aria-pressed="false"><span class="area">Paying bills</span><span class="face q">"The receipts are in a shoebox."</span><span class="face fix"><b>What we set up</b>Snap a receipt and it's filed against the right expense the same day.</span><span class="hint">See the fix</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- How it works ---------- -->
+  <section class="how gutter" id="how" aria-labelledby="how-h">
+    <div class="inner">
+      <header class="sec-head on-navy">
+        <span class="lbl">How it works</span>
+        <h2 id="how-h">Three steps. You only commit to the first.</h2>
+      </header>
+
+      <ol class="timeline" role="tablist" aria-label="Steps">
+        <li><button type="button" role="tab" id="t1" aria-controls="s1" aria-selected="true"><span class="n">Step 1</span><span class="t">Check-up</span><span class="bar"><i></i></span></button></li>
+        <li><button type="button" role="tab" id="t2" aria-controls="s2" aria-selected="false" tabindex="-1"><span class="n">Step 2</span><span class="t">Fix</span><span class="bar"><i></i></span></button></li>
+        <li><button type="button" role="tab" id="t3" aria-controls="s3" aria-selected="false" tabindex="-1"><span class="n">Step 3<span class="opt"> · Optional</span></span><span class="t">Keep</span><span class="bar"><i></i></span></button></li>
+      </ol>
+
+      <div class="slides" id="slides">
+        <!-- 1 Check-up -->
+        <article class="slide on" id="s1" role="tabpanel" aria-labelledby="t1">
+          <svg class="bg-ink" viewBox="0 0 400 300" aria-hidden="true"><rect x="70" y="40" width="170" height="220" rx="6"/><rect x="120" y="28" width="70" height="24" rx="4"/><line x1="96" y1="96" x2="214" y2="96"/><line x1="96" y1="126" x2="200" y2="126"/><line x1="96" y1="156" x2="210" y2="156"/><line x1="96" y1="186" x2="170" y2="186"/><circle cx="270" cy="190" r="48"/><line x1="304" y1="224" x2="350" y2="270"/></svg>
+          <div class="s-words">
+            <h3>Check-up</h3>
+            <p class="s-lede">A clear look at how your business runs. Built around two hours with you. Delivered as a short, plain-English report.</p>
+            <ul class="s-list"><li>We sit with you and the tools you use now</li><li>We find the three to five fixes worth the most</li><li>You keep the report, whatever you decide</li></ul>
+            <p class="s-meta">About 2 hours with you · report within a week · fixed price</p>
+            <a class="call" href="#contact">Book your Check-up</a>
+          </div>
+          <div class="s-show">
+            <div class="card report">
+              <div class="lh"><span>Check-up report</span><span>Example</span></div>
+              <p class="r-title">Harlow &amp; Sons Plumbing</p>
+              <p class="r-sub">The three fixes worth the most</p>
+              <ol class="r-list">
+                <li><span><b>Invoices go out nine days after the job.</b> About $4,100 is waiting at any time.</span></li>
+                <li><span><b>Two bills were paid twice this year.</b> $640 back, and a check so it can't happen again.</span></li>
+                <li><span><b>Parts are reordered from memory.</b> Three return trips to the supplier a month.</span></li>
+              </ol>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 Fix -->
+        <article class="slide" id="s2" role="tabpanel" aria-labelledby="t2" hidden>
+          <svg class="bg-ink" viewBox="0 0 400 300" aria-hidden="true"><rect x="60" y="150" width="230" height="110" rx="6"/><path d="M130 150 L130 124 Q130 112 142 112 L208 112 Q220 112 220 124 L220 150"/><line x1="60" y1="190" x2="290" y2="190"/><rect x="160" y="182" width="30" height="18" rx="3"/><path d="M300 90 L350 40 M338 30 Q360 18 368 40 Q376 62 352 66 Z M300 90 Q286 104 300 116 Q314 128 326 112 Z"/></svg>
+          <div class="s-words">
+            <h3>Fix</h3>
+            <p class="s-lede">The fixes, set up and working. Built on the tools you already pay for. Designed so your team can run them without us.</p>
+            <ul class="s-list"><li>We set up each fix and test it with real work</li><li>Your team gets a one-page "How we do it now"</li><li>Everything lives in one folder you own</li></ul>
+            <p class="s-meta">Usually two to four weeks · fixed price, agreed after the Check-up</p>
+            <a class="call" href="#work">See what a fix looks like</a>
+          </div>
+          <div class="s-show">
+            <div class="card folder">
+              <div class="lh"><span>Harlow &amp; Sons · Your folder</span><span>Example</span></div>
+              <ul class="f-list">
+                <li><span class="ic doc"></span><span><b>Check-up report</b><small>PDF · 4 pages</small></span><em>You see this</em></li>
+                <li><span class="ic doc"></span><span><b>How we do it now</b><small>One page for the team</small></span><em>You see this</em></li>
+                <li><span class="ic sheet"></span><span><b>Pay-run checklist</b><small>Google Sheet · every Monday</small></span></li>
+                <li><span class="ic dir"></span><span><b>Invoice templates</b><small>3 items · QuickBooks</small></span></li>
+                <li><span class="ic sheet"></span><span><b>Parts and reorder points</b><small>Google Sheet · 42 parts</small></span></li>
+              </ul>
+            </div>
+            <div class="card chip done float"><span class="dot">✓</span><span><small>Done</small>Invoice reminders are on</span></div>
+          </div>
+        </article>
+
+        <!-- 3 Keep -->
+        <article class="slide" id="s3" role="tabpanel" aria-labelledby="t3" hidden>
+          <svg class="bg-ink" viewBox="0 0 400 300" aria-hidden="true"><rect x="70" y="60" width="200" height="190" rx="6"/><line x1="70" y1="100" x2="270" y2="100"/><line x1="110" y1="46" x2="110" y2="74"/><line x1="230" y1="46" x2="230" y2="74"/><line x1="70" y1="150" x2="270" y2="150"/><line x1="70" y1="200" x2="270" y2="200"/><line x1="137" y1="100" x2="137" y2="250"/><line x1="203" y1="100" x2="203" y2="250"/><path d="M300 200 L300 250 Q300 262 312 262 L344 262 Q356 262 356 250 L356 200 Z M356 214 Q374 214 374 228 Q374 242 356 242"/><path d="M316 186 Q312 176 318 168 M332 186 Q328 176 334 168"/></svg>
+          <div class="s-words">
+            <h3>Keep</h3>
+            <p class="s-lede">A monthly plan for the running. Built for the pay run, the books check and small changes. Designed to cost less than one late fee a week.</p>
+            <ul class="s-list"><li>The pay run done with you, every week or two</li><li>A monthly books check before your accountant sees them</li><li>Small fixes as the business changes</li></ul>
+            <p class="s-meta">Monthly · cancel any time · we never hold your money</p>
+            <a class="call" href="#contact">Ask about Keep</a>
+          </div>
+          <div class="s-show">
+            <div class="card plan">
+              <div class="lh"><span>December · Keep plan</span><span>Example</span></div>
+              <ul class="p-list">
+                <li class="ok"><span class="d">Mon 1</span><span>Pay run, 6 bills</span><i></i></li>
+                <li class="ok"><span class="d">Fri 5</span><span>Books check</span><i></i></li>
+                <li><span class="d">Mon 15</span><span>Pay run</span><i></i></li>
+                <li><span class="d">Wed 31</span><span>Month-end close</span><i></i></li>
+              </ul>
+            </div>
+            <div class="card chip float"><span class="dot">+</span><span><small>Small fix</small>New supplier added to the pay run</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="s-nav">
+        <button type="button" id="prev" aria-label="Previous step">←</button>
+        <button type="button" id="next" aria-label="Next step">→</button>
+        <button type="button" id="pause" class="pause" aria-pressed="false">Pause</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Work ---------- -->
+  <section class="work gutter" id="work" aria-labelledby="work-h">
+    <div class="inner">
+      <header class="sec-head">
+        <span class="lbl">Work</span>
+        <h2 id="work-h">Systems we've built and run ourselves.</h2>
+        <p>Each one started as a small, everyday problem. Built in our studio; client stories take their place as they're approved.</p>
+      </header>
+      <div class="cases">
+        <article class="case">
+          <div class="pic">
+            <div class="card mini">
+              <div class="lh"><span>Receipt · 14 Nov</span><span>Split</span></div>
+              <div class="m-row"><span>Groceries</span><span>$42.10</span></div>
+              <div class="m-row"><span>Household</span><span>$18.40</span></div>
+              <div class="m-row tot"><span>Total</span><span>$60.50</span></div>
+            </div>
+            <div class="card chip float-s"><span class="dot">?</span><span><small>Two weeks later</small>Worth it? Yes, used daily</span></div>
+          </div>
+          <span class="tags">Paying bills · Tidy books</span>
+          <h3>Receipts that file themselves</h3>
+          <p>Snap a receipt, split it by category, and look back later at what was worth it. Spending over time, by week, month and year.</p>
+        </article>
+        <article class="case">
+          <div class="pic">
+            <div class="card mini">
+              <div class="lh"><span>Today</span><span>25 minutes</span></div>
+              <div class="m-row ok"><span>Wipe the counters</span><i></i></div>
+              <div class="m-row ok"><span>Check the filters</span><i></i></div>
+              <div class="m-row"><span>Restock the van</span><i></i></div>
+            </div>
+            <div class="card chip float-s"><span class="dot">↓</span><span><small>Calendar file</small>Sent to the team</span></div>
+          </div>
+          <span class="tags">Upkeep · Scheduling</span>
+          <h3>Upkeep nobody forgets</h3>
+          <p>A short daily list balanced to the time you have, so the regular jobs happen before something breaks. Shared as a calendar file.</p>
+        </article>
+        <article class="case">
+          <div class="pic">
+            <div class="card mini week">
+              <div class="lh"><span>Launch week</span><span>Sprint</span></div>
+              <div class="days"><span class="d on">M</span><span class="d on">T</span><span class="d on">W</span><span class="d on">T</span><span class="d">F</span><span class="d">S</span><span class="d">S</span></div>
+              <div class="m-row"><span>Posts planned</span><span>7</span></div>
+              <div class="m-row"><span>Check-ins</span><span>3</span></div>
+            </div>
+            <div class="card chip float-s done"><span class="dot">✓</span><span><small>Thursday</small>Product photos approved</span></div>
+          </div>
+          <span class="tags">Marketing · Customer updates</span>
+          <h3>A launch planned in a week</h3>
+          <p>A one-week plan of posts, pictures and check-ins for a new product, with the numbers checked as it runs.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Who / What we don't do ---------- -->
+  <section class="who gutter" aria-labelledby="who-h">
+    <div class="inner">
+      <div class="who-grid">
+        <div>
+          <header class="sec-head"><span class="lbl">Who we work with</span><h2 id="who-h">Owner-run businesses of one to fifteen.</h2></header>
+          <ul class="kinds">
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8 a9 9 0 0 0 -8 12 L8 34 a4 4 0 0 0 6 6 L28 26 a9 9 0 0 0 12 -8 l-6 2 -4 -4 2 -6 z"/></svg><span><b>Trades and home services</b>Plumbers, electricians, cleaners, landscapers</span></li>
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18 h36 l-3 -8 h-30 z M6 18 q4 6 9 0 q4 6 9 0 q4 6 9 0 q4 6 9 0 M10 22 v18 h28 v-18 M20 40 v-10 h8 v10"/></svg><span><b>Shops and makers</b>Boutiques, florists, bakers, sellers online</span></li>
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 16 h32 v22 h-32 z M18 16 v-5 h12 v5 M8 25 h32"/></svg><span><b>Small offices</b>Advisors, therapists, small law practices</span></li>
+          </ul>
+        </div>
+        <div class="dont">
+          <span class="lbl">What we don't do</span>
+          <p><b>Tax advice or audits.</b> We work alongside your accountant and hand them tidier books.</p>
+          <p><b>Hold your money.</b> Payments always go from your own accounts, with your approval.</p>
+          <p><b>Lock you in.</b> Everything lives in a folder you own, on tools you already pay for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- About ---------- -->
+  <section class="about gutter" id="about" aria-labelledby="about-h">
+    <div class="inner about-grid">
+      <svg class="monogram" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="84" class="fine"/>
+        <text x="100" y="118" text-anchor="middle">M&amp;F</text>
+        <path d="M44 140 Q100 158 156 140" class="fine"/>
+      </svg>
+      <div class="about-words">
+        <span class="lbl">About the studio</span>
+        <h2 id="about-h">A small studio for the work behind the work.</h2>
+        <p>Martin &amp; Finch sets up the systems that keep small businesses running: the bills, the books, the stock and the updates to customers.</p>
+        <p>We come from building software and from money management, so we set the tools up ourselves, test them with real work, and explain them in plain English. When we leave, your team knows how it all works.</p>
+        <p class="where">Based on the East Coast · in person nearby, remote anywhere</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Questions ---------- -->
+  <section class="faq gutter" id="faq" aria-labelledby="faq-h">
+    <div class="inner faq-grid">
+      <header class="sec-head"><span class="lbl">Questions</span><h2 id="faq-h">Before you book.</h2></header>
+      <div class="qs">
+        <details><summary>Do I have to change software?</summary><p>Usually not. Most fixes use what you already pay for. If a tool is costing you more than it saves, we'll say so and show you the numbers.</p></details>
+        <details><summary>Are you an accountant?</summary><p>No. We set up the systems and keep them running. Your accountant does tax and advice, and gets tidier books from us.</p></details>
+        <details><summary>How long does a Check-up take?</summary><p>About two hours with you, then the report within a week.</p></details>
+        <details><summary>Will you see my bank accounts?</summary><p>Only what you choose to share, read-only where possible. We never move money without your approval.</p></details>
+        <details><summary>Can you work remotely?</summary><p>Yes, over a video call with screen sharing. In person if you're nearby.</p></details>
+        <details><summary>What if I only want one thing fixed?</summary><p>That's fine. Tell us on the call and we'll quote just that.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Contact ---------- -->
+  <section class="contact gutter" id="contact" aria-labelledby="contact-h">
+    <div class="inner contact-grid">
+      <div class="c-words">
+        <span class="lbl">Contact</span>
+        <h2 id="contact-h">Book a free 20-minute call.</h2>
+        <p>Tell us what's bugging you. We reply within one working day.</p>
+        <div class="mail">
+          <a class="addr" id="addr" href="mailto:martinandfinch90@gmail.com">martinandfinch90@gmail.com</a>
+          <button type="button" id="copy" class="copy">Copy</button>
+        </div>
+      </div>
+      <div class="card form-card">
+        <form id="cform" novalidate>
+          <div class="f-field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required><span class="err" id="e-name" hidden>Add your name so we know who to reply to.</span></div>
+          <div class="f-field"><label for="f-biz">Business <span class="opt-l">(optional)</span></label><input id="f-biz" name="biz" type="text" autocomplete="organization"></div>
+          <div class="f-field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err" id="e-email" hidden>Add an email address, like name@shop.com.</span></div>
+          <div class="f-field"><label for="f-what">What's bugging you?</label><textarea id="f-what" name="what" rows="4" placeholder="Invoices go out late and nobody chases them" required></textarea><span class="err" id="e-what" hidden>A sentence is enough.</span></div>
+          <fieldset class="f-field times"><legend>Best time to talk</legend>
+            <label><input type="radio" name="time" id="t-am" value="Mornings" checked><span>Mornings</span></label>
+            <label><input type="radio" name="time" id="t-pm" value="Afternoons"><span>Afternoons</span></label>
+            <label><input type="radio" name="time" id="t-ev" value="Evenings"><span>Evenings</span></label>
+          </fieldset>
+          <input type="text" name="_honey" id="f-honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <button class="call send" type="submit" id="send">Send</button>
+          <p class="form-fail" id="fail" hidden>That didn't send. Please email <a href="mailto:martinandfinch90@gmail.com">martinandfinch90@gmail.com</a> instead.</p>
+        </form>
+        <div class="thanks" id="thanks" hidden>
+          <span class="dot big">✓</span>
+          <h3 id="thanks-h">Thanks.</h3>
+          <p>Your note is on its way. We'll reply within one working day.</p>
+          <button type="button" class="soft-btn" id="again">Send another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot gutter">
+  <div class="inner foot-grid">
+    <div class="f-brand">
+      <span class="mark"><b>Martin &amp; Finch</b><span>Back-office studio</span></span>
+      <p>Clear systems that keep your business running.</p>
+    </div>
+    <nav class="f-col" aria-label="Services"><span class="lbl">Services</span><a href="#familiar">Paying bills</a><a href="#familiar">Getting paid</a><a href="#familiar">Tidy books</a><a href="#familiar">Stock</a><a href="#familiar">Shipping</a><a href="#familiar">Customer updates</a></nav>
+    <nav class="f-col" aria-label="Studio"><span class="lbl">Studio</span><a href="#how">How it works</a><a href="#work">Work</a><a href="#about">About</a><a href="#faq">Questions</a><a href="#contact">Contact</a></nav>
+    <div class="f-col"><span class="lbl">Say hello</span><a href="mailto:martinandfinch90@gmail.com">martinandfinch90@gmail.com</a><span>East Coast, United States</span></div>
+  </div>
+  <div class="inner f-base"><span>© 2026 Martin &amp; Finch</span><span>We never hold client money. We work alongside your accountant.</span></div>
+</footer>
+
+<script>
+(function () {
+  // Services menu (click or keyboard; closes on outside click and Escape)
+  var btn = document.getElementById('svcBtn'), menu = document.getElementById('svcMenu');
+  function setMenu(open) { menu.hidden = !open; btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setMenu(menu.hidden); });
+  document.addEventListener('click', function (e) { if (!menu.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMenu(false); setNav(false); } });
+
+  // Phone menu
+  var bar = document.getElementById('bar'), burger = document.getElementById('burger');
+  function setNav(open) { bar.classList.toggle('open', open); burger.setAttribute('aria-expanded', open ? 'true' : 'false'); burger.textContent = open ? 'Close' : 'Menu'; }
+  burger.addEventListener('click', function () { setNav(!bar.classList.contains('open')); });
+  document.getElementById('nav').addEventListener('click', function (e) { if (e.target.closest('a')) { setNav(false); setMenu(false); } });
+
+  // The ledger settles, then the chips
+  var rows = [].slice.call(document.querySelectorAll('.row'));
+  var chips = [].slice.call(document.querySelectorAll('[data-chip]'));
+  var tot = document.getElementById('tot');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timers = [], raf = 0;
+  function money(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function settle(r) { r.classList.remove('bad'); r.classList.add(r.getAttribute('data-fix') === 'dup' ? 'dup' : 'ok'); }
+  function finish(c) { c.classList.add('done'); c.querySelector('.dot').textContent = '✓'; var m = c.querySelector('.msg'); m.textContent = m.getAttribute('data-after'); }
+  function reset(c) { c.classList.remove('done'); var m = c.querySelector('.msg'); m.textContent = m.getAttribute('data-before'); c.querySelector('.dot').textContent = c.classList.contains('c-ship') ? '88' : '6'; }
+  function count(to) {
+    var start = 0; cancelAnimationFrame(raf);
+    function step(t) { if (!start) start = t; var k = Math.min(1, (t - start) / 1000); tot.textContent = money(to * (1 - Math.pow(1 - k, 3))); if (k < 1) raf = requestAnimationFrame(step); }
+    raf = requestAnimationFrame(step);
+  }
+  function play() {
+    timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf);
+    rows.forEach(function (r) { r.classList.remove('ok', 'dup'); r.classList.add('bad'); });
+    chips.forEach(reset); tot.textContent = '$0.00';
+    if (reduce) { rows.forEach(settle); chips.forEach(finish); tot.textContent = money(1625.5); return; }
+    var t = 1800;
+    rows.forEach(function (r) { timers.push(setTimeout(function () { settle(r); }, t)); t += 650; });
+    timers.push(setTimeout(function () { count(1625.5); }, t));
+    chips.forEach(function (c) { t += 900; timers.push(setTimeout(function () { finish(c); }, t)); });
+  }
+  document.getElementById('replay').addEventListener('click', play);
+  play();
+
+  // Sound familiar? cards turn over to show the fix
+  [].slice.call(document.querySelectorAll('.worry')).forEach(function (w) {
+    w.addEventListener('click', function () {
+      var on = w.getAttribute('aria-pressed') !== 'true';
+      w.setAttribute('aria-pressed', on ? 'true' : 'false');
+      w.querySelector('.hint').textContent = on ? 'Back to the worry' : 'See the fix';
+    });
+  });
+
+  // How it works: a slideshow that moves along its own timeline
+  var how = document.querySelector('.how');
+  var tabs = [].slice.call(document.querySelectorAll('.timeline [role="tab"]'));
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var pauseBtn = document.getElementById('pause');
+  var cur = 0, auto = !reduce;
+  function show(i, fromUser) {
+    cur = (i + slides.length) % slides.length;
+    tabs.forEach(function (t, k) {
+      t.setAttribute('aria-selected', k === cur ? 'true' : 'false');
+      t.tabIndex = k === cur ? 0 : -1;
+      t.parentNode.classList.toggle('done', k < cur);
+      var bar = t.querySelector('.bar i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    });
+    slides.forEach(function (s, k) { s.hidden = k !== cur; s.classList.toggle('on', k === cur); });
+    if (fromUser) setAuto(false);
+  }
+  function setAuto(on) {
+    auto = on; how.classList.toggle('paused', !on);
+    pauseBtn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    pauseBtn.textContent = on ? 'Pause' : 'Play';
+  }
+  tabs.forEach(function (t, k) {
+    t.addEventListener('click', function () { show(k, true); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show(cur + (e.key === 'ArrowRight' ? 1 : -1), true); tabs[cur].focus(); }
+    });
+    t.querySelector('.bar i').addEventListener('animationend', function () { if (auto && k === cur) show(cur + 1, false); });
+  });
+  document.getElementById('prev').addEventListener('click', function () { show(cur - 1, true); });
+  document.getElementById('next').addEventListener('click', function () { show(cur + 1, true); });
+  pauseBtn.addEventListener('click', function () { setAuto(!auto); if (auto) show(cur, false); });
+  setAuto(auto);
+  show(0, false);
+
+  // Copy the email address
+  var copyBtn = document.getElementById('copy'), addr = document.getElementById('addr');
+  copyBtn.addEventListener('click', function () {
+    function selectIt() { var r = document.createRange(); r.selectNodeContents(addr); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selected'; }
+    try {
+      navigator.clipboard.writeText(addr.textContent).then(function () { copyBtn.textContent = 'Copied'; }, selectIt);
+    } catch (e) { selectIt(); }
+    setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2200);
+  });
+
+  // Contact form: checks itself, then sends through FormSubmit to the studio inbox
+  var form = document.getElementById('cform'), thanks = document.getElementById('thanks');
+  var checks = [
+    { id: 'f-name', err: 'e-name', ok: function (v) { return v.trim().length > 0; } },
+    { id: 'f-email', err: 'e-email', ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); } },
+    { id: 'f-what', err: 'e-what', ok: function (v) { return v.trim().length > 0; } }
+  ];
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = null;
+    checks.forEach(function (c) {
+      var el = document.getElementById(c.id), good = c.ok(el.value);
+      el.setAttribute('aria-invalid', good ? 'false' : 'true');
+      document.getElementById(c.err).hidden = good;
+      if (!good && !first) first = el;
+    });
+    if (first) { first.focus(); return; }
+    if (document.getElementById('f-honey').value) return; // a bot filled the hidden field
+    var val = function (id) { return document.getElementById(id).value.trim(); };
+    var time = (form.querySelector('input[name="time"]:checked') || {}).value || '';
+    var send = document.getElementById('send'), fail = document.getElementById('fail');
+    send.disabled = true; send.textContent = 'Sending…'; fail.hidden = true;
+    fetch('https://formsubmit.co/ajax/martinandfinch90@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'New call request: ' + (val('f-biz') || val('f-name')),
+        _template: 'table',
+        _replyto: val('f-email'),
+        name: val('f-name'), business: val('f-biz'), email: val('f-email'),
+        'what is bugging them': val('f-what'), 'best time': time
+      })
+    }).then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'failed'); }); })
+      .then(function () {
+        var name = val('f-name').split(/\s+/)[0];
+        document.getElementById('thanks-h').textContent = 'Thanks, ' + name + '.';
+        form.hidden = true; thanks.hidden = false;
+      })
+      .catch(function () { fail.hidden = false; })
+      .then(function () { send.disabled = false; send.textContent = 'Send'; });
+  });
+  checks.forEach(function (c) {
+    document.getElementById(c.id).addEventListener('input', function (e) {
+      if (e.target.getAttribute('aria-invalid') === 'true' && c.ok(e.target.value)) { e.target.setAttribute('aria-invalid', 'false'); document.getElementById(c.err).hidden = true; }
+    });
+  });
+  document.getElementById('again').addEventListener('click', function () { form.reset(); thanks.hidden = true; form.hidden = false; document.getElementById('f-name').focus(); });
+})();
+</script>
+</body>
+</html>
