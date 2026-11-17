@@ -1,6 +1,6 @@
 # Brand files
 
-Rebuilt as vectors on 2026-11-17 from the logo the owner started in GoDaddy's logo maker (version 2, traced on the original's pixel grid). Monogram: a tapered navy N, and a gold F drawn as a finch: an outlined head with an eye, a thin curved back ending in a tail, the beak as the F's top bar, the neck flowing into the upright, and the middle arm floating free. The eye is navy on light backgrounds and cream on dark ones. Wordmark: "Martin" and "Finch" in Source Serif 4 Semibold and "and" in Source Serif 4 Regular, condensed to 85%, turned into outlines so no font is needed to view it.
+Version 3 (2026-11-17): the monogram is redrawn as vectors from the owner's reference image. Monogram: a navy N with a flared stem and a curved top-left serif, and a gold F drawn as a finch: a white head with an eye, outlined by a gold arc that runs over the head into the F's top bar; a small hooked beak under the bar; the throat curving down into the upright; and a free middle arm with a flicked tip. The eye is navy on light backgrounds and cream on dark ones. Wordmark: "Martin" and "Finch" in Source Serif 4 Semibold and "and" in Source Serif 4 Regular, condensed to 85%, kept as outlines so no font is needed to view it.
 
 | File | Use |
 |---|---|
@@ -15,4 +15,4 @@ Rebuilt as vectors on 2026-11-17 from the logo the owner started in GoDaddy's lo
 
 Colours: navy `#0B2A4A`, gold `#B08F4E`, cream `#F6EFE0`.
 
-`source/build-logo.cjs` regenerates the SVGs: `node build-logo.cjs SourceSerif4-Semibold.ttf SourceSerif4-Regular.ttf <outdir>`. It needs `opentype.js`.
+`source/build-logo.cjs` regenerates the SVGs into `brand/`: `node brand/source/build-logo.cjs`. It needs nothing installed. The wordmark outlines are frozen in `source/wordmark.json`, because newer Source Serif 4 releases set the words wider. The PNGs were exported from the SVGs with headless Chrome. The LinkedIn banners have no source file: the new logo was painted over the old one in place.
